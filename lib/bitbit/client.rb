@@ -28,7 +28,7 @@ module Bitbit
 
         case response
         when Net::HTTPClientError
-          raise Bitbit::APIClientError.new('API req error')
+          raise Bitbit::APIClientError.new('API request error')
         end
         return response
       rescue Errno::ECONNRESET, Errno::EAGAIN, Net::ReadTimeout

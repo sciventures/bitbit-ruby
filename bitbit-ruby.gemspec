@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Bitbit Ruby bindings}
   spec.description   = %q{Bitbit Client}
-  spec.homepage      = "Bitbit.cash"
+  spec.homepage      = "http://www.bitbit.cash"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or

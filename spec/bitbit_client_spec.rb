@@ -13,5 +13,11 @@ RSpec.describe Bitbit::Client do
       json = JSON.parse(resp.body)
       puts json
     end
+
+    it 'returns invoice address' do
+      resp = subject.address(label: 'test')
+      json = JSON.parse(resp.body)
+      puts json
+    end
   end
 end

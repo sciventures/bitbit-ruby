@@ -1,7 +1,17 @@
+require 'json'
 require 'spec_helper'
 
 RSpec.describe Bitbit::Client do
-  it 'instantiate bitbit client' do
-    expect(Bitbit::Client.new('test', '123')).to be_instance_of Bitbit::Client
+  let(:client_id) { ENV['BITBIT_CLIENT_ID'] }
+  let(:client_secret) { ENV['BITBIT_CLIENT_SECRET'] }
+
+  subject { described_class.new(client_id, client_secret) }
+
+  describe '#address' do
+    it 'returns invoice address' do
+      resp = subject.address
+      json = JSON.parse(resp.body)
+      puts json
+    end
   end
 end

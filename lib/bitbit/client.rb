@@ -6,8 +6,8 @@ module Bitbit
     end
 
     def rates
-      request = Net::HTTP::Get.new('/rates/peso')
-      http.request(request)
+      req = Net::HTTP::Get.new('/rates/peso')
+      http.request(req)
     end
 
     def send(address, amount, memo)
@@ -22,18 +22,30 @@ module Bitbit
       }
 
       begin
-        request = Net::HTTP::Put.new("/prepaid/wallet/send", { 'Content-type' => 'text/json' })
-        request.body = body.to_json
-        response = http.request(request)
+        req = Net::HTTP::Put.new("/prepaid/wallet/send", { 'Content-type' => 'text/json' })
+        req.body = body.to_json
+        response = http.req(req)
 
         case response
         when Net::HTTPClientError
-          raise Bitbit::APIClientError.new('API request error')
+          raise Bitbit::APIClientError.new('API req error')
         end
         return response
       rescue Errno::ECONNRESET, Errno::EAGAIN, Net::ReadTimeout
         raise Bitbit::APIClientError.new('Could not connect to API endpoint')
       end
+    end
+
+    def address
+      body = {
+        'clientId' => @client_id,
+        'clientSecret' => @client_secret
+      }
+
+      req = Net::HTTP::Post.new('/rebit/address', { 'Content-type' => 'text/json' })
+      req.body = body.to_json
+
+      http.request(req)
     end
 
     private
@@ -43,7 +55,7 @@ module Bitbit
     end
 
     def api_uri
-      URI('http://api.sci.ph')
+      URI(ENV['BITBIT_HOST'])
     end
   end
 end

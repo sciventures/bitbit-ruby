@@ -42,7 +42,7 @@ module Bitbit
         'clientSecret' => @client_secret,
       }
 
-      body.merge(opts)
+      body.merge!(opts)
 
       req = Net::HTTP::Post.new('/rebit/address', { 'Content-type' => 'text/json' })
       req.body = body.to_json

@@ -24,7 +24,7 @@ module Bitbit
       begin
         req = Net::HTTP::Put.new("/prepaid/wallet/send", { 'Content-type' => 'text/json' })
         req.body = body.to_json
-        response = http.req(req)
+        response = http.request(req)
 
         case response
         when Net::HTTPClientError

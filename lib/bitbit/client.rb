@@ -57,7 +57,7 @@ module Bitbit
     end
 
     def api_uri
-      URI(ENV['BITBIT_HOST'])
+      URI(ENV['BITBIT_HOST']) || "https://api.bitbit.cash"
     end
   end
 end

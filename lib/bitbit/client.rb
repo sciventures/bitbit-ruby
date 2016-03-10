@@ -10,13 +10,14 @@ module Bitbit
       http.request(req)
     end
 
-    def send(address, amount, memo)
+    def send(address, amount, memo, sequence_id=nil)
       amount_to_decimal = "%f" % BigDecimal.new(amount.to_s).to_s
 
       body = {
         'amount' => amount_to_decimal,
         'address' => address,
         'memo' => memo,
+        'sequenceId' => sequence_id,
         'clientId' => @client_id,
         'clientSecret' => @client_secret
       }

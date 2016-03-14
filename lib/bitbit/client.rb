@@ -29,7 +29,12 @@ module Bitbit
 
         case response
         when Net::HTTPClientError
-          raise Bitbit::APIClientError.new(response.body)
+          begin
+            message = JSON.parse(response.body)['message']
+          rescue
+            message = response.body
+          end
+          raise Bitbit::APIClientError.new(message)
         end
         return response
       rescue Errno::ECONNRESET, Errno::EAGAIN, Net::ReadTimeout
